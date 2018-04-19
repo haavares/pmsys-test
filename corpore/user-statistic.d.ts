@@ -2,6 +2,7 @@ import { IDataPoint } from '../omh';
 import { IWellness } from './wellness';
 import { ISessionRPE } from './session-rpe';
 import { IParticipation } from './participation';
+import { IInjury } from './injury';
 export declare function dateCmp(a: Date, b: Date): number;
 export declare class UserStatistics {
     private currentScoreValidityDays;
@@ -37,6 +38,9 @@ export declare class UserStatistics {
     participateX: Date[];
     participateGoing: string[];
     participateComment: string[];
+    injuryX: Date[];
+    injuryInjuries: {}[];
+    injuryIllness: string[];
     latestReport: {
         [key: string]: Date;
     };
@@ -46,6 +50,7 @@ export declare class UserStatistics {
     srpeData: IDataPoint<ISessionRPE>[];
     wellnessData: IDataPoint<IWellness>[];
     participationData: IDataPoint<IParticipation>[];
+    injuryData: IDataPoint<IInjury>[];
     private _dirty;
     getLatest(name: string): Date;
     addDataPoint(value: IDataPoint<any>): void;
@@ -55,5 +60,6 @@ export declare class UserStatistics {
     private computeScores(offset?);
     private computeWellnessData();
     private computeParticipationData();
+    private computeInjuryData();
     private computeSessionRPEData();
 }

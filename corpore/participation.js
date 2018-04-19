@@ -2,8 +2,8 @@ import moment from 'moment';
 import { UUID } from 'angular2-uuid';
 import { CurrentDateTimeFrame, SchemaID, SchemaVersion, PMSYS_2_0_PROVENANCE } from '../omh/index';
 var PARTICIPATION_1_0_SCHEMA = new SchemaID("corporesano", "participation", new SchemaVersion(1, 0));
-var PMSYSRPEHeader = /** @class */ (function () {
-    function PMSYSRPEHeader(user_id) {
+var PMSYSParticipationHeader = /** @class */ (function () {
+    function PMSYSParticipationHeader(user_id) {
         this.user_id = user_id;
         this.id = UUID.UUID();
         this.creation_date_time = moment.tz(moment.tz.guess()).toDate();
@@ -11,7 +11,7 @@ var PMSYSRPEHeader = /** @class */ (function () {
         this.acuisition_provenance = PMSYS_2_0_PROVENANCE;
     }
     ;
-    return PMSYSRPEHeader;
+    return PMSYSParticipationHeader;
 }());
 var Participation = /** @class */ (function () {
     function Participation(effective_time_frame, going, comment) {

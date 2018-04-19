@@ -3,11 +3,11 @@
   "version": "0.4.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/haavares/pmsys-ts-test.git"
+    "url": "https://github.com/haavardj/pmsys-ts.git"
   },
   "author": {
-    "name": "Håvard Espeland",
-    "email": "haavares@forzasys.com"
+    "name": "Håvard Dagenborg Johansen",
+    "email": "haavardj@dagenborg.net"
   },
   "keywords": [
     "Open mHealth",

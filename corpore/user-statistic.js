@@ -5,6 +5,7 @@ import { computeSessionRPE } from './session-rpe';
 import moment from 'moment';
 import * as _ from 'lodash';
 import { isParticipation } from './participation';
+import { isInjury } from './injury';
 export function dateCmp(a, b) {
     return (a > b ? 1 : a < b ? -1 : 0);
 }
@@ -46,6 +47,9 @@ var UserStatistics = /** @class */ (function () {
         this.participateX = [];
         this.participateGoing = [];
         this.participateComment = [];
+        this.injuryX = [];
+        this.injuryInjuries = [];
+        this.injuryIllness = [];
         /* Latest seen datapoints for different datatypes */
         this.latestReport = {};
         /* Earliest seen datapoints for different datatypes */
@@ -54,6 +58,7 @@ var UserStatistics = /** @class */ (function () {
         this.srpeData = [];
         this.wellnessData = [];
         this.participationData = [];
+        this.injuryData = [];
         /* Indicates that a recompute is needed */
         this._dirty = false;
     }
@@ -80,6 +85,10 @@ var UserStatistics = /** @class */ (function () {
             this._dirty = true;
             this.participationData.push(value);
         }
+        else if (isInjury(value.body)) {
+            this._dirty = true;
+            this.injuryData.push(value);
+        }
         else {
             throw 'Unknown user datatype';
         }
@@ -99,6 +108,7 @@ var UserStatistics = /** @class */ (function () {
         this.computeSessionRPEData();
         this.computeScores();
         this.computeParticipationData();
+        this.computeInjuryData();
         this._dirty = false;
     };
     UserStatistics.prototype.setCurrentScoreDays = function (days) {
@@ -217,6 +227,25 @@ var UserStatistics = /** @class */ (function () {
             this.participateX.push(onDay);
             this.participateGoing.push(val.body.going);
             this.participateComment.push(val.body.comment);
+        }
+    };
+    UserStatistics.prototype.computeInjuryData = function () {
+        /* Skip if no data */
+        if (this.injuryData.length === 0) {
+            return;
+        }
+        /* Make sure input array is sorted */
+        this.injuryData = this.injuryData.sort(function (a, b) {
+            return dateCmp(a.body.effective_time_frame.date_time, b.body.effective_time_frame.date_time);
+        });
+        this.latestReport['injury'] = this.injuryData[this.injuryData.length - 1].body.effective_time_frame.date_time;
+        this.earliestReport['injury'] = this.injuryData[0].body.effective_time_frame.date_time;
+        for (var _i = 0, _a = this.injuryData; _i < _a.length; _i++) {
+            var val = _a[_i];
+            var onDay = val.body.effective_time_frame.date_time;
+            this.injuryX.push(onDay);
+            this.injuryIllness.push(val.body.illness);
+            this.injuryInjuries.push(val.body.injuries);
         }
     };
     /*
