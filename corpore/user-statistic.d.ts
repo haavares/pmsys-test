@@ -38,9 +38,6 @@ export declare class UserStatistics {
     participateX: Date[];
     participateGoing: string[];
     participateComment: string[];
-    injuryX: Date[];
-    injuryInjuries: {}[];
-    injuryComment: string[];
     lastInjury: IInjury;
     latestReport: {
         [key: string]: Date;

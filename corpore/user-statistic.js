@@ -47,9 +47,6 @@ var UserStatistics = /** @class */ (function () {
         this.participateX = [];
         this.participateGoing = [];
         this.participateComment = [];
-        this.injuryX = [];
-        this.injuryInjuries = [];
-        this.injuryComment = [];
         /* Latest seen datapoints for different datatypes */
         this.latestReport = {};
         /* Earliest seen datapoints for different datatypes */
