@@ -1,20 +1,19 @@
 import { IDataPoint, ITimeFrame, IHeader } from '../omh/index';
-export declare const BodyParts: string[];
-export declare const Severity: string[];
-export declare const IllnessTypes: string[];
+export declare const ValidBodyParts: string[];
+export declare const ValidSeverities: string[];
 export interface IInjury {
     effective_time_frame: ITimeFrame;
     injuries: {
         [body_part: string]: string;
     };
-    illness: string;
+    comment: string;
 }
 export declare class Injury implements IInjury {
     effective_time_frame: ITimeFrame;
     injuries: {};
-    illness: string;
-    static fromBasicValues(injuries: {}, illness: string): Injury;
-    constructor(effective_time_frame: ITimeFrame, injuries: {}, illness: string);
+    comment: string;
+    static fromBasicValues(injuries: {}, comment: string): Injury;
+    constructor(effective_time_frame: ITimeFrame, injuries: {}, comment: string);
 }
 export declare function isInjury(t: any): t is IInjury;
 export declare class InjuryDataPoint implements IDataPoint<IInjury> {

@@ -49,7 +49,7 @@ var UserStatistics = /** @class */ (function () {
         this.participateComment = [];
         this.injuryX = [];
         this.injuryInjuries = [];
-        this.injuryIllness = [];
+        this.injuryComment = [];
         /* Latest seen datapoints for different datatypes */
         this.latestReport = {};
         /* Earliest seen datapoints for different datatypes */
@@ -238,15 +238,13 @@ var UserStatistics = /** @class */ (function () {
         this.injuryData = this.injuryData.sort(function (a, b) {
             return dateCmp(a.body.effective_time_frame.date_time, b.body.effective_time_frame.date_time);
         });
-        this.latestReport['injury'] = this.injuryData[this.injuryData.length - 1].body.effective_time_frame.date_time;
-        this.earliestReport['injury'] = this.injuryData[0].body.effective_time_frame.date_time;
-        for (var _i = 0, _a = this.injuryData; _i < _a.length; _i++) {
-            var val = _a[_i];
-            var onDay = val.body.effective_time_frame.date_time;
-            this.injuryX.push(onDay);
-            this.injuryIllness.push(val.body.illness);
-            this.injuryInjuries.push(val.body.injuries);
+        var last = this.injuryData.length - 1;
+        if (last < 0) {
+            return;
         }
+        this.latestReport['injury'] = this.injuryData[last].body.effective_time_frame.date_time;
+        this.earliestReport['injury'] = this.injuryData[0].body.effective_time_frame.date_time;
+        this.lastInjury = this.injuryData[last].body;
     };
     /*
      * Update Session RPE data from set datapoints.

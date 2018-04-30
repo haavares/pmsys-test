@@ -40,7 +40,8 @@ export declare class UserStatistics {
     participateComment: string[];
     injuryX: Date[];
     injuryInjuries: {}[];
-    injuryIllness: string[];
+    injuryComment: string[];
+    lastInjury: IInjury;
     latestReport: {
         [key: string]: Date;
     };

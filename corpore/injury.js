@@ -1,8 +1,9 @@
 import moment from 'moment';
 import { UUID } from 'angular2-uuid';
 import { CurrentDateTimeFrame, SchemaID, SchemaVersion, PMSYS_2_0_PROVENANCE } from '../omh/index';
-export var BodyParts = [
+export var ValidBodyParts = [
     'head_neck',
+    'chest',
     'stomach_back',
     'groin_hip',
     'left_shoulder',
@@ -24,18 +25,10 @@ export var BodyParts = [
     'right_leg',
     'right_foot',
 ];
-export var Severity = [
+export var ValidSeverities = [
     'normal',
     'minor',
     'major',
-];
-export var IllnessTypes = [
-    'fever',
-    'headache',
-    'flu',
-    'stomach',
-    'diarrhea',
-    'other'
 ];
 var INJURY_1_0_SCHEMA = new SchemaID("corporesano", "injury", new SchemaVersion(1, 0));
 var PMSYSInjuryHeader = /** @class */ (function () {
@@ -50,13 +43,13 @@ var PMSYSInjuryHeader = /** @class */ (function () {
     return PMSYSInjuryHeader;
 }());
 var Injury = /** @class */ (function () {
-    function Injury(effective_time_frame, injuries, illness) {
+    function Injury(effective_time_frame, injuries, comment) {
         this.effective_time_frame = effective_time_frame;
         this.injuries = injuries;
-        this.illness = illness;
+        this.comment = comment;
     }
-    Injury.fromBasicValues = function (injuries, illness) {
-        return new Injury(new CurrentDateTimeFrame(), injuries, illness);
+    Injury.fromBasicValues = function (injuries, comment) {
+        return new Injury(new CurrentDateTimeFrame(), injuries, comment);
     };
     ;
     return Injury;
@@ -70,7 +63,7 @@ export function isInjury(t) {
     if (i.injuries === undefined) {
         return false;
     }
-    if (i.illness === undefined) {
+    if (i.comment === undefined) {
         return false;
     }
     return true;
